@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Audio Button</title>
+  <style>
+    /* Banner Container */
+    .banner {
+      width: 300px;
+      height: 250px;
+      background-color: white;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid hsl(0, 100%, 50%);
+    }
+
+    /* Tap Area (Full Banner Clickable) */
+    .tap-area {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: block; /* Always present for clickability */
+    }
+
+    /* Button */
+    .action-button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      z-index: 2; /* Above the tap area initially */
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <!-- Tap Area (Landing Link) -->
+    <a href="https://zaap.bio/TouhidDesign" target="_blank" class="tap-area" id="tapArea"></a>
+
+    <!-- Button -->
+    <button class="action-button" id="actionButton">Play Music</button>
+
+    <!-- Audio File -->
+    <audio id="audioPlayer" src="audio-GPShaw.mp3"></audio>
+  </div>
+
+  <script>
+    // Get references to elements
+    const actionButton = document.getElementById('actionButton');
+    const tapArea = document.getElementById('tapArea');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    // Handle button click
+    actionButton.addEventListener('click', (event) => {
+      event.preventDefault(); // Prevent default link behavior
+      event.stopPropagation(); // Prevent the tap area click
+
+      if (actionButton.innerText === 'Play Music') {
+        // Play the audio
+        audioPlayer.play();
+
+        // Change button text to "Watch Now"
+        actionButton.innerText = 'Watch Now';
+
+        // Set Tap Area to be on top of the button
+        tapArea.style.zIndex = 3; // Move tap area above everything
+        actionButton.style.zIndex = 1; // Move button below tap area
+      }
+    });
+  </script>
+</body>
+</html>
